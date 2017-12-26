@@ -1,4 +1,4 @@
-package bitcoin
+package notes
 
 import (
 	"crypto/sha256"
@@ -11,9 +11,26 @@ import (
 	"golang.org/x/crypto/sha3"
 )
 
+func init() {
+	addCommand(cli.Command{
+		Name:    "bitcoin",
+		Aliases: []string{"btc"},
+		Usage:   "Something about bitcoin.",
+		Subcommands: []cli.Command{
+			{
+				Name:    "new",
+				Aliases: []string{"new"},
+				Usage:   "Generate a new bitcoin wallet.",
+				Action:  NewWallet,
+			},
+		},
+	})
+}
+
+//NewWallet generates a new bitcoin wallet.
 func NewWallet(c *cli.Context) error {
+	s := []byte(c.Args().First())
 	//Generate secp256k1 private key
-	s := []byte("Hello World!")
 	h1 := sha3.Sum256(s)
 	h2 := sha3.Sum256(h1[:])
 	private := h2[:]
