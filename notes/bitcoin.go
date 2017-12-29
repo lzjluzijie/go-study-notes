@@ -21,14 +21,14 @@ func init() {
 				Name:    "new",
 				Aliases: []string{"new"},
 				Usage:   "Generate a new bitcoin wallet.",
-				Action:  NewWallet,
+				Action:  newWallet,
 			},
 		},
 	})
 }
 
 //NewWallet generates a new bitcoin wallet.
-func NewWallet(c *cli.Context) error {
+func newWallet(c *cli.Context) (err error) {
 	s := []byte(c.Args().First())
 	//Generate secp256k1 private key
 	h1 := sha3.Sum256(s)
